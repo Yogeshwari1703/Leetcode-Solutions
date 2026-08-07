@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> reverseSubmatrix(vector<vector<int>>& grid, int x, int y, int k) {
+        int m = grid.size();
+        if (m == 0) return grid;
+        int n = grid[0].size();
+
+        // Create a copy of the grid
+        vector<vector<int>> temp = grid;
+
+        // Determine the actual dimensions of the submatrix to reverse
+        int end_row = min(x + k, m);
+        int end_col = min(y + k, n);
+
+        // Reverse the rows within the submatrix
+        for (int i = x; i < end_row; i++) {
+            // Calculate the corresponding row in the reversed submatrix
+            int reversed_row = x + (end_row - 1 - i);
+            for (int j = y; j < end_col; j++) {
+                grid[i][j] = temp[reversed_row][j];
+            }
+        }
+
+        return grid;
+    }
+};
